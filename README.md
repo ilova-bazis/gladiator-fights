@@ -40,8 +40,8 @@
 - Уклонение применяется только к атакам, а не к блокам. Это гарантирует, что игрокам по-прежнему необходимо стратегически блокировать определенные части тела.
 
 # Links
-## [Backend](https://github.com/ilova-bazis/gladiator-fights/blob/main/backend/README.md) - Дполнительная информация дла бэкендщиков
-## [Frontend](https://github.com/ilova-bazis/gladiator-fights/blob/main/frontend/README.md) - Дполнительная информация дла фронтэндщиков
+### [Backend](https://github.com/ilova-bazis/gladiator-fights/blob/main/backend/README.md) - Дполнительная информация дла бэкендщиков
+### [Frontend](https://github.com/ilova-bazis/gladiator-fights/blob/main/frontend/README.md) - Дполнительная информация дла фронтэндщиков
 
 # Backlog
 ### Можно сдлеать в будущем
