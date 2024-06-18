@@ -5,3 +5,6 @@
 
 # Картинка для отображения игрока 2
 ![](https://github.com/ilova-bazis/gladiator-fights/blob/main/assets/player1_icon.jpeg?raw=true)
+
+# Картинка бойцов для фона
+![](https://github.com/ilova-bazis/gladiator-fights/blob/main/assets/fight.jpeg?raw=true)
