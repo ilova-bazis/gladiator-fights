@@ -9,6 +9,12 @@
 - Response: `{ "id": 1, "name": "Gladiator's Name", "strength": 0, "agility": 0, "stamina": 0, "level": 1, "availablePoints": 5 }`
 
 
+### Get Character
+- Endpoint: `/api/characters/{id}`
+- Method: `GET`
+- Response: `{ "id": 1, "name": "Gladiator's Name", "strength": 0, "agility": 0, "stamina": 0, "level": 1, "availablePoints": 5 }`
+
+
 ### Adjust Character Attributes
 
 - Endpoint: `/api/characters/{id}/attributes`
