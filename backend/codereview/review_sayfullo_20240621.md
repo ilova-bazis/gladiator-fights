@@ -46,3 +46,4 @@
 ```py
     raise HTTPException(status_code=404, detail="Character not found")
 ```
+Также нужно проверить есть ли у него достаточно очков для увеличения атрибутов
