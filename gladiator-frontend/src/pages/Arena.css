@@ -1,0 +1,273 @@
+/* @import url('./assets/fight.jpeg'); Ensure fight.jpeg is in src/pages/assets or adjust path */
+/* We will assume fight.jpeg is in src/assets/ and App.tsx or index.tsx will make it available if not using direct url() pathing from public */
+
+.arenaContainer { /* Renamed to camelCase for consistency if used as a module, but it's a plain CSS file. Keep as is for now. */
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-image: url('../assets/fight.jpeg'); /* Path relative to where CSS is processed from, or use absolute if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative; /* For potential pseudo-elements like overlays */
+}
+
+/* Overlay to improve text readability on background image */
+.arenaContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  border-radius: 8px; /* Match parent's border radius */
+  z-index: 1; /* Place overlay above background but below content */
+}
+
+/* Ensure content is above the overlay */
+.arenaContainer > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Adjust H1 color for better visibility on dark overlay */
+.arenaContainer h1, .arenaContainer h4, .arenaContainer h3 {
+  color: #fff; /* White text for titles */
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Text shadow for readability */
+}
+
+.arena-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+.arena-button:hover {
+  background-color: #0056b3;
+}
+
+.battle-ground {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  margin-bottom: 30px;
+}
+
+.participant-section {
+  width: 45%;
+  padding: 15px;
+  border: 1px solid #777; /* Darker border for contrast on overlay */
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white for content boxes */
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.participantIcon {
+    width: 50px; /* Adjust as needed */
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc; /* Placeholder */
+    margin: 0 auto 10px;
+    /* background-image: url('../assets/player1_icon.jpeg'); /* Example */
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #fff;
+}
+
+
+.participant-section h3 {
+  margin-top: 0;
+  color: #222; /* Darker text for content boxes */
+  text-align: center;
+}
+
+.participant-section p {
+    font-size: 0.9em;
+    color: #333; /* Darker text for content boxes */
+    margin: 5px 0;
+}
+
+.vs-separator {
+  font-size: 2em;
+  font-weight: bold;
+  color: #ffc107; /* Gold/Yellow for VS, stands out on dark bg */
+  text-shadow: 1px 1px 3px #000;
+  align-self: center;
+}
+
+.health-bar-container {
+  width: 100%;
+  height: 25px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  overflow: hidden; /* Ensures the inner bar respects border radius */
+}
+
+.health-bar {
+  height: 100%;
+  line-height: 25px; /* Vertically center text */
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+}
+
+.actions-container {
+  background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #777; /* Darker border */
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.action-section {
+  margin-bottom: 20px;
+}
+
+.action-section h4 { /* Title for Choose Attack/Block Area */
+  color: #222; /* Darker text for content boxes */
+  margin-bottom: 10px;
+}
+
+.body-parts {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.body-part-button {
+  padding: 12px 18px;
+  font-size: 1em;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  background-color: #e9ecef;
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 100px; /* Ensure buttons have a decent size */
+}
+
+.body-part-button:hover {
+  background-color: #ced4da;
+  border-color: #adb5bd;
+}
+
+.body-part-button.selected-attack {
+  background-color: #dc3545; /* Red for attack */
+  color: white;
+  border-color: #c82333;
+}
+
+.body-part-button.selected-block {
+  background-color: #28a745; /* Green for block */
+  color: white;
+  border-color: #1e7e34;
+}
+
+.body-part-button:disabled {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+  border-color: #e9ecef;
+}
+
+.submit-move-button {
+  background-color: #ffc107; /* Yellow for submit */
+  color: #212529;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-move-button:hover:not(:disabled) {
+  background-color: #e0a800;
+}
+
+.submit-move-button:disabled {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+}
+
+.battle-log-container {
+  margin-top: 30px;
+  padding: 15px;
+  background-color: rgba(44, 62, 80, 0.9); /* Dark, semi-transparent for log */
+  color: #ecf0f1; /* Light text for log */
+  border-radius: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.7);
+  border-top: 2px solid #ffc107; /* Gold accent */
+}
+
+.battle-log-container h4 { /* Battle Log title */
+  margin-top: 0;
+  color: #ffc107; /* Gold for log title */
+  border-bottom: 1px solid #e0a800;
+  padding-bottom: 10px; /* More spacing */
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.battle-log p {
+  margin: 8px 0; /* More spacing */
+  padding: 5px;
+  border-bottom: 1px dashed #566573; /* Darker dashed separator */
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+.battle-log p:last-child {
+    border-bottom: none;
+}
+
+.player-log {
+    color: #58d68d; /* Brighter Green for player actions */
+}
+.opponent-log {
+    color: #e74c3c; /* Red for opponent actions - unchanged, still good */
+}
+
+/* Responsive adjustments (example) */
+@media (max-width: 768px) {
+  .battle-ground {
+    flex-direction: column;
+    align-items: center;
+  }
+  .participant-section {
+    width: 90%;
+    margin-bottom: 15px;
+  }
+  .vs-separator {
+    margin: 10px 0;
+  }
+  .body-parts {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+  }
+  .body-part-button {
+    width: 100%; /* Make buttons full width */
+    margin-bottom: 5px;
+  }
+  .arenaContainer h1 {
+    font-size: 1.8em; /* Adjust title size for smaller screens */
+  }
+}

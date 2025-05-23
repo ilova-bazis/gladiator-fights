@@ -1,0 +1,181 @@
+.container {
+  padding: 20px;
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.characterInfo {
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.characterInfo p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 1.05em;
+}
+
+.xpBarContainer {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 10px;
+  height: 22px;
+}
+
+.xpBar {
+  width: 0%; /* Default, will be set by inline style */
+  background-color: #4caf50; /* Green for XP */
+  height: 100%;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  line-height: 22px; /* Vertical center */
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Space between current stats and allocation */
+}
+
+.statsDisplay, .allocationSection {
+  width: 48%;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.statsDisplay h3, .allocationSection h3 {
+  text-align: center;
+  color: #444;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.statsDisplay p, .allocationSection p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 1em;
+}
+.statsDisplay hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    margin: 15px 0;
+}
+.availablePointsText {
+    font-weight: bold;
+    color: #007bff; /* Blue to highlight */
+    text-align: center;
+    font-size: 1.1em;
+}
+
+
+.statRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.95em;
+}
+
+.statName {
+  flex-grow: 1; /* Allow stat name to take available space */
+  color: #333;
+}
+.statValue { /* Used in allocation section for the number */
+    min-width: 20px; /* ensure space for number */
+    text-align: right;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+.statControls button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.statControls button:hover {
+  background-color: #0056b3;
+}
+.statControls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.saveButton {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #28a745; /* Green for save/confirm */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  display: block; /* Make it block to center if needed or full width in its container */
+  width: 100%;
+  transition: background-color 0.2s;
+}
+
+.saveButton:hover:not(:disabled) {
+  background-color: #218838;
+}
+.saveButton:disabled {
+  background-color: #6c757d; /* Grey when disabled */
+  cursor: not-allowed;
+}
+
+.noCharacterMessage {
+    text-align: center;
+    padding: 30px;
+    font-size: 1.1em;
+    color: #555;
+}
+.noCharacterMessage a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+.noCharacterMessage a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mainContent {
+    flex-direction: column;
+  }
+  .statsDisplay, .allocationSection {
+    width: 100%;
+    margin-bottom: 20px; /* Add margin when stacked */
+  }
+  .allocationSection {
+    margin-bottom: 0; /* No bottom margin for the last stacked item */
+  }
+}
