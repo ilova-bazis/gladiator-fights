@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strings" // Added import
 	"sync"
+	"gladiator-backend/game" // Added for InitializeFightPlayer and AwardXP
 
 	"github.com/google/uuid"
 )
@@ -17,6 +18,71 @@ var (
 	activeFights = make(map[string]*models.Fight) // New map for active fights
 	mutex        = &sync.Mutex{}                 // Shared mutex for characters, lobbies, and fights
 )
+
+// StartAIFight handles POST requests to /api/fights/start-ai
+// It creates a new fight against a computer-controlled opponent.
+func StartAIFight(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
+		return
+	}
+
+	var req struct {
+		CharacterID string `json:"characterId"`
+	}
+
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	if req.CharacterID == "" {
+		http.Error(w, "Character ID cannot be empty", http.StatusBadRequest)
+		return
+	}
+
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	playerCharacter, ok := characters[req.CharacterID]
+	if !ok {
+		http.Error(w, "Player character not found", http.StatusNotFound)
+		return
+	}
+
+	// Create AI opponent using the new game logic function
+	aiOpponent := game.CreateAICharacter(playerCharacter.Level)
+	// Note: AI character is not added to the global 'characters' map
+	// as it's ephemeral for this fight. This might change if AI needs persistence.
+
+	playerFightData := game.InitializeFightPlayer(playerCharacter)
+	aiFightData := game.InitializeFightPlayer(aiOpponent)
+
+	fightID := uuid.New().String()
+	newFight := &models.Fight{
+		FightID:             fightID,
+		Player1:             playerFightData, // Human player
+		Player2:             aiFightData,     // AI opponent
+		Turn:                1,
+		IsOver:              false,
+		CurrentTurnPlayerID: playerCharacter.ID, // Human player starts
+	}
+
+	activeFights[fightID] = newFight
+
+	response := map[string]interface{}{
+		"fightId":       fightID,
+		"playerTurn":    true, // Human player always starts against AI
+		"aiCharacterId": aiOpponent.ID,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		fmt.Printf("Error encoding start AI fight response: %v\n", err)
+		http.Error(w, "Failed to encode response", http.StatusInternalServerError)
+	}
+}
 
 // CreateCharacter handles POST requests to /api/characters
 // It creates a new character with default stats.
@@ -488,6 +554,9 @@ func MakeMove(w http.ResponseWriter, r *http.Request) {
 // EndFight handles DELETE requests to /api/fights/{fightId}
 // Based on README, this is more about getting results and cleaning up.
 func EndFight(w http.ResponseWriter, r *http.Request) {
+	// Ensure game import is present if not already, for AwardXP
+	// import "gladiator-backend/game"
+
 	if r.Method != http.MethodDelete { // Or GET if it's just fetching results
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
 		return

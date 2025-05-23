@@ -5,6 +5,8 @@ import (
 	"gladiator-backend/models"
 	"math/rand"
 	"time"
+
+	"github.com/google/uuid" // Added for AI character ID generation
 )
 
 // Game balance constants
@@ -190,4 +192,34 @@ func AwardXP(character *models.Character, amount int) (leveledUp bool, pointsGai
 		}
 	}
 	return leveledUp, pointsGained
+}
+
+// CreateAICharacter generates an AI opponent character.
+// The AI's stats scale with the provided playerLevel.
+func CreateAICharacter(playerLevel int) models.Character {
+	aiStrength := 8 + (playerLevel-1)*2
+	aiAgility := 8 + (playerLevel-1)*2
+	aiStamina := 8 + (playerLevel-1)*1
+
+	// Ensure stats are not below a minimum baseline, especially if playerLevel could be < 1 (though current logic handles level 1 okay)
+	if aiStrength < 1 {
+		aiStrength = 1
+	}
+	if aiAgility < 1 {
+		aiAgility = 1
+	}
+	if aiStamina < 1 {
+		aiStamina = 1
+	}
+
+	return models.Character{
+		ID:              uuid.New().String(),
+		Name:            fmt.Sprintf("Computer Gladiator Lv. %d", playerLevel),
+		Level:           playerLevel,
+		Strength:        aiStrength,
+		Agility:         aiAgility,
+		Stamina:         aiStamina,
+		XP:              0,
+		AvailablePoints: 0,
+	}
 }

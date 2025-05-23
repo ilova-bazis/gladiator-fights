@@ -85,6 +85,8 @@ func main() {
 	})
 
 	// Fight routes
+	http.HandleFunc("/api/fights/start-ai", api.StartAIFight) // New route for starting AI fight
+
 	http.HandleFunc("/api/fights/", func(w http.ResponseWriter, r *http.Request) {
 		pathParts := strings.Split(strings.TrimSuffix(r.URL.Path, "/"), "/")
 		// Expected:
